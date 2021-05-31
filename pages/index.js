@@ -23,8 +23,8 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <h1>Unofficial Gatineau Assesment Roll</h1>
-        <p>Note this is unofficial, so I provide no gaurantee regarding the accuracy of the data, the official Gatineau assesment roll website can be found here. 
+        <h1>Unofficial Gatineau Assessment Roll</h1>
+        <p>Note this is unofficial, so I provide no gaurantee regarding the accuracy of the data, the official Gatineau assessment roll website can be found here. 
 
 I created this site to modernize the system due to the outdated user interface, outdated search funcionality, and display the data directly rather than through a file as well as support both French and English.</p>
       </main>
