@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import styles from '../../styles/LanguageSelector.module.css'
 
 const LanguageSelector = () => {
     const router = useRouter();
@@ -12,10 +13,10 @@ const LanguageSelector = () => {
     }
 
     return (
-        <div>
-            <select name="languages" id="language-selector" onChange={onSelectChange}>
+        <div className={styles.languageselectorcontainer}>
+            <select className={styles.languageselector} name="languages" id="language-selector" onChange={onSelectChange}>
                 {router.locales.map((language) =>(
-                    <option value={language}>
+                    <option className={styles.languageoption} value={language}>
                         {language === "en" ? "EN" : language === "fr" ? "FR" : null}
                     </option>
                 ))}

@@ -1,0 +1,20 @@
+.languageselectorcontainer{
+    margin-left: auto;
+}
+
+.languageselector{
+    font-size: 175%;
+    font-family: 'Quicksand', sans-serif;
+    font-weight:bold;
+    border: transparent;
+}
+
+.languageselector:focus-visible{
+    border: transparent;
+    outline:none;
+}
+
+.languageoption{
+    font-weight:bold;
+    border: transparent;
+}
