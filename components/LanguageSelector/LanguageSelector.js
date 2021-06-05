@@ -16,7 +16,7 @@ const LanguageSelector = () => {
         <div className={styles.languageselectorcontainer}>
             <select className={styles.languageselector} name="languages" id="language-selector" onChange={onSelectChange}>
                 {router.locales.map((language) =>(
-                    <option className={styles.languageoption} value={language}>
+                    <option key={language} className={styles.languageoption} value={language}>
                         {language === "en" ? "EN" : language === "fr" ? "FR" : null}
                     </option>
                 ))}
