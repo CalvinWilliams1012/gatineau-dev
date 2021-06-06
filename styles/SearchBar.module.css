@@ -1,0 +1,16 @@
+.searchbarcontainer{
+    width:75%;
+    height:40px;
+}
+
+.searchbarinnercontainer{
+    width:100%;
+    height:100%;
+}
+
+.searchbarinput{
+    width:100%;
+    height:100%;
+    background-color: #C4C4C4;
+    border:transparent;
+}

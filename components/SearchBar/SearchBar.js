@@ -1,5 +1,6 @@
 import React from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import styles from "../../styles/SearchBar.module.css";
 
 class SearchBar extends React.Component {
 
@@ -68,7 +69,7 @@ class SearchBar extends React.Component {
           types = will only return 'address' types for predictions, as only addresses would have assessments.
         */
         return (
-          <div>
+          <div className={styles.searchbarcontainer}>
             {gmapsLoaded && (
               <PlacesAutocomplete
                 onChange={this.handleChange}
@@ -94,8 +95,9 @@ class SearchBar extends React.Component {
                   loading,
                 }) => {
                   return (
-                    <div>
+                    <div className={styles.searchbarinnercontainer}>
                       <input
+                        className={styles.searchbarinput}
                         {...getInputProps({ placeholder: "Enter Address..." })}
                       />
                       <div>

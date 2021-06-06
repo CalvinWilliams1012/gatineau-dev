@@ -27,16 +27,20 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <h1>Unofficial Gatineau Assessment Roll</h1>
+        <div className={styles.row,styles.titlerow}>
+         <h1>Unofficial Gatineau Assessment Roll</h1>
+        </div>
         <SearchBar />
-        <p>
-          Note this is unofficial, so I provide no gaurantee regarding the
-          accuracy of the data, the official Gatineau assessment roll website
-          can be found here. I created this site to modernize the system due to
-          the outdated user interface, outdated search funcionality, and display
-          the data directly rather than through a file as well as support both
-          French and English.
-        </p>
+        <div className={styles.row}>
+          <p className={styles.paragraph}>
+            Note this is unofficial, so I provide no guarantee regarding the
+            accuracy of the data, the official Gatineau assessment roll website
+            can be found here. I created this site to modernize the system due to
+            the outdated user interface, outdated search funcionality, and display
+            the data directly rather than through a file as well as support both
+            French and English.
+          </p>
+        </div>
       </main>
 
       <footer className={styles.footer}>
