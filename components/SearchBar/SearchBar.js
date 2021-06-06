@@ -8,9 +8,6 @@ class SearchBar extends React.Component {
         this.state = {
             address: '',
             errorMessage: '',
-            latitude: null,
-            longitude: null,
-            isGeocoding: false,
             gmapsLoaded: false,
           };
     }
@@ -22,10 +19,18 @@ class SearchBar extends React.Component {
     handleChange = (address) => {
         this.setState({
             address,
-            latitude:null,
-            longitude:null,
             errorMessage: '',
         })
+    }
+
+    /* 
+      Handles errors from the PlacesAutocomplete when an error is thrown. 
+      Sets the error message and clears suggestions.
+    */
+    handleError = (status, clearSuggestions) => {
+      this.setState({ errorMessage: status }, () => {
+        clearSuggestions();
+      });  
     }
 
     /* 
@@ -52,9 +57,6 @@ class SearchBar extends React.Component {
         const {
             address,
             errorMessage,
-            latitude,
-            longitude,
-            isGeocoding,
             gmapsLoaded
         } = this.state;
 
@@ -72,6 +74,7 @@ class SearchBar extends React.Component {
                 onChange={this.handleChange}
                 value={address}
                 shouldFetchSuggestions={address.length > 3}
+                onError={this.handleError}
                 searchOptions={{
                   location: new window.google.maps.LatLng(
                     45.476543,
@@ -109,6 +112,12 @@ class SearchBar extends React.Component {
                   );
                 }}
               </PlacesAutocomplete>
+            )}
+            {/* If we have an error message, write it.*/}
+            {errorMessage.length > 0 && (
+              <div>
+                {this.state.errorMessage}
+              </div>
             )}
           </div>
         );
