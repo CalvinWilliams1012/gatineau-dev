@@ -1,6 +1,7 @@
 import React from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import styles from "../../styles/SearchBar.module.css";
+import AssessmentData from "../AssessmentData/AssessmentData";
 
 class SearchBar extends React.Component {
 
@@ -8,6 +9,7 @@ class SearchBar extends React.Component {
         super(props);
         this.state = {
             address: '',
+            selectedAddress: '',
             errorMessage: '',
             gmapsLoaded: false,
           };
@@ -34,6 +36,15 @@ class SearchBar extends React.Component {
       });  
     }
 
+    /*
+      Handles address selection from PlacesAutocomplete.
+      Sets the selected address which is used to render the assessment
+      also sets the address to set the ensure the autocomplete is set to the selected value.
+    */
+    handleSelect = selected => {
+      this.setState({selectedAddress: selected, address: selected});
+    }
+
     /* 
       This will result in render() being called twice
       however this is required due to the need to use google.maps.LatLang to create an object to send to PlacesAutocomplete prop
@@ -57,6 +68,7 @@ class SearchBar extends React.Component {
     render() {
         const {
             address,
+            selectedAddress,
             errorMessage,
             gmapsLoaded
         } = this.state;
@@ -76,6 +88,7 @@ class SearchBar extends React.Component {
                 value={address}
                 shouldFetchSuggestions={address.length > 3}
                 onError={this.handleError}
+                onSelect={this.handleSelect}
                 searchOptions={{
                   location: new window.google.maps.LatLng(
                     45.476543,
@@ -100,7 +113,7 @@ class SearchBar extends React.Component {
                         className={styles.searchbarinput}
                         {...getInputProps({ placeholder: "Enter Address..." })}
                       />
-                      <div>
+                      <div className={styles.searchresultcontainer}>
                         {loading && <div>Loading...</div>}
                         {suggestions.map((suggestion) => {
                           return (
@@ -115,12 +128,15 @@ class SearchBar extends React.Component {
                 }}
               </PlacesAutocomplete>
             )}
+
+            {/* 
+              When a suggestion is selected, we set the address.
+              When the address is selected, we request the API to render the assessment.
+            */}
+            {this.state.selectedAddress.length > 0 && <AssessmentData address={selectedAddress}/>}
+
             {/* If we have an error message, write it.*/}
-            {errorMessage.length > 0 && (
-              <div>
-                {this.state.errorMessage}
-              </div>
-            )}
+            {errorMessage.length > 0 && <div>{this.state.errorMessage}</div>}
           </div>
         );
     }
