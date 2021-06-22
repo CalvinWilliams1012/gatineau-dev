@@ -1,5 +1,5 @@
 .searchbarcontainer{
-    width:75%;
+    width:100%;
     height:40px;
 }
 
@@ -18,8 +18,17 @@
 }
 
 .searchresultcontainer{
-    width: 100%;
     background-color: #C4C4C4;
-    border:transparent;
+}
+
+.searchresultcontainer div{
+    padding: 8px;
     text-indent: 10px;
+    font-weight: bold;
+    background-color: #C4C4C4;
+    cursor: pointer;
+}
+
+.searcherror{
+    color: red;
 }

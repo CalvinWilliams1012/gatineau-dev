@@ -116,8 +116,9 @@ class SearchBar extends React.Component {
                       <div className={styles.searchresultcontainer}>
                         {loading && <div>Loading...</div>}
                         {suggestions.map((suggestion) => {
+                          const cName = styles.suggestionitem
                           return (
-                            <div {...getSuggestionItemProps(suggestion)}>
+                            <div className={styles.searchresult} {...getSuggestionItemProps(suggestion,{cName})}>
                               <span>{suggestion.description}</span>
                             </div>
                           );
@@ -136,7 +137,7 @@ class SearchBar extends React.Component {
             {this.state.selectedAddress.length > 0 && <AssessmentData address={selectedAddress}/>}
 
             {/* If we have an error message, write it.*/}
-            {errorMessage.length > 0 && <div>{this.state.errorMessage}</div>}
+            {errorMessage.length > 0 && <div className={styles.searcherror}>{this.state.errorMessage}</div>}
           </div>
         );
     }
