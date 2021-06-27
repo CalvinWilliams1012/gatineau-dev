@@ -1,39 +1,33 @@
-import React from 'react';
+import React, { useState , useEffect  } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import styles from "../../styles/SearchBar.module.css";
-import AssessmentData from "../AssessmentData/AssessmentData";
+import {useRouter} from 'next/router';
 
-class SearchBar extends React.Component {
+function SearchBar(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            address: '',
-            selectedAddress: '',
-            errorMessage: '',
-            gmapsLoaded: false,
-          };
-    }
+    const [address,setAddress] = useState("");
+    const [errorMessage,setErrorMessage] = useState("");
+    const [gmapsLoaded,setGmapsLoaded] = useState(false);
+    const router = useRouter();
+
 
     /* 
       Handle change from the PlacesAutocomplete when the user types their address.
       Simply sets state.
     */
-    handleChange = (address) => {
-        this.setState({
-            address,
-            errorMessage: '',
-        })
+    const handleChange = (address) => {
+        setAddress(address);
+        setErrorMessage('')
     }
 
     /* 
       Handles errors from the PlacesAutocomplete when an error is thrown. 
       Sets the error message and clears suggestions.
     */
-    handleError = (status, clearSuggestions) => {
-      this.setState({ errorMessage: status }, () => {
+    const handleError = (status, clearSuggestions) => {
+      setErrorMessage({ errorMessage: status }, () => {
         clearSuggestions();
-      });  
+      });
     }
 
     /*
@@ -41,8 +35,11 @@ class SearchBar extends React.Component {
       Sets the selected address which is used to render the assessment
       also sets the address to set the ensure the autocomplete is set to the selected value.
     */
-    handleSelect = selected => {
-      this.setState({selectedAddress: selected, address: selected});
+    const handleSelect = (selected) => {
+      router.push({
+        pathname: '/assessment/[aID]',
+        query: {aID: selected},
+      });
     }
 
     /* 
@@ -55,23 +52,14 @@ class SearchBar extends React.Component {
 
       Not really optimal, as this is bad for performance..
     */
-    componentDidMount(){
-      const { gmapsLoaded } = this.state;
+    useEffect(() => {
       if(gmapsLoaded === false){
-        window.initGoog = () => this.setState({gmapsLoaded: true});
+        window.initGoog = () => setGmapsLoaded(true);
         const gmapScript = document.createElement(`script`)
         gmapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_PLACES_API}&libraries=places&callback=initGoog`
         document.querySelector(`body`).insertAdjacentElement(`beforeend`, gmapScript)
       }
-    }
-
-    render() {
-        const {
-            address,
-            selectedAddress,
-            errorMessage,
-            gmapsLoaded
-        } = this.state;
+    },[])
 
         /* 
           Search options for the google api.
@@ -84,11 +72,11 @@ class SearchBar extends React.Component {
           <div className={styles.searchbarcontainer}>
             {gmapsLoaded && (
               <PlacesAutocomplete
-                onChange={this.handleChange}
+                onChange={handleChange}
                 value={address}
                 shouldFetchSuggestions={address.length > 3}
-                onError={this.handleError}
-                onSelect={this.handleSelect}
+                onError={handleError}
+                onSelect={handleSelect}
                 searchOptions={{
                   location: new window.google.maps.LatLng(
                     45.476543,
@@ -129,18 +117,10 @@ class SearchBar extends React.Component {
                 }}
               </PlacesAutocomplete>
             )}
-
-            {/* 
-              When a suggestion is selected, we set the address.
-              When the address is selected, we request the API to render the assessment.
-            */}
-            {this.state.selectedAddress.length > 0 && <AssessmentData address={selectedAddress}/>}
-
             {/* If we have an error message, write it.*/}
             {errorMessage.length > 0 && <div className={styles.searcherror}>{this.state.errorMessage}</div>}
           </div>
         );
-    }
 }
 
 export default SearchBar;
