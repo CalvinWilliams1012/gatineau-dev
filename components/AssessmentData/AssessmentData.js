@@ -5,9 +5,12 @@ function AssessmentData(props){
 
     useEffect(() => {
         setAssessment(props.address);
-        /*fetch(process.env.ASSESSMENT_API_URI + process.env.ASSESSMENT_API_PATH).then(
-            data => setAssessment(data.json())
-        )*/
+        if(assessment!== '' && assessment != undefined ){
+            fetch(process.env.ASSESSMENT_API_URI + process.env.ASSESSMENT_API_PATH).then(
+                data => setAssessment(data.json())
+            )
+        }
+
     }, [props.address])
 
     return (
