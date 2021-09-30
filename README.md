@@ -14,5 +14,11 @@ The assessment is also accessible through the main gatineau website if you have 
 
 While the current assessment functionality is "good enough" and most likely the developers have better things to focus on as it works, I decided to try and improve it for fun.
 
+## Image of the site
 ![screenshot of this website, search bar with fake city of gatineau logo, language selector and notice](https://github.com/CalvinWilliams1012/gatineau-dev/blob/main/GatineauDev.JPG)
 
+## Images of the original figma design/idea
+As you can see I ended up changing the CSS around on the real site until I liked it, these were just starting points :)
+![screenshot of figma landing page](https://github.com/CalvinWilliams1012/gatineau-dev/blob/main/Figma1.JPG)
+![screenshot of figma search results](https://github.com/CalvinWilliams1012/gatineau-dev/blob/main/Figma2.JPG)
+![screenshot of figma results page](https://github.com/CalvinWilliams1012/gatineau-dev/blob/main/Figma3.JPG)
